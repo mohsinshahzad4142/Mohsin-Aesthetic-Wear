@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohsin Aesthetic Wear | Elevate Your Identity</title>
+    <!-- Tailwind CSS CDN for Structural Utility -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-primary: #0a0a0c;
+            --bg-secondary: #121216;
+            --accent-neon: #00ffcc;
+            --accent-glow: rgba(0, 255, 204, 0.4);
+            --text-main: #ffffff;
+            --glass-bg: rgba(18, 18, 22, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.05);
+        }
+
+        [data-theme="cyber-purple"] {
+            --accent-neon: #bf55ec;
+            --accent-glow: rgba(191, 85, 236, 0.4);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .heading-font {
+            font-family: 'Syne', sans-serif;
+        }
+
+        /* Glassmorphism Styles */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+        }
+
+        .glass-nav {
+            background: rgba(10, 10, 12, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-b: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        /* Neon Glow Utility */
+        .neon-text-glow {
+            text-shadow: 0 0 10px var(--accent-glow), 0 0 20px var(--accent-glow);
+        }
+
+        .neon-border-glow:focus {
+            outline: none;
+            border-color: var(--accent-neon);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .btn-neon {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--accent-neon);
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.1);
+        }
+
+        .btn-neon:hover {
+            background: var(--accent-neon);
+            color: #000;
+            box-shadow: 0 0 25px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        /* Preloader Animation */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #050507;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .loader-bar {
+            width: 200px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .loader-bar::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background: var(--accent-neon);
+            animation: load 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes load {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #22222a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-neon);
+        }
+
+        /* Smooth Cart Drawer Transition */
+        .cart-drawer {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .cart-drawer.open {
+            transform: translateX(0);
+        }
+
+        /* Animated Grid Background for Hero Section */
+        .grid-bg {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, #000 70%, transparent 100%);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- LOADING SCREEN -->
+    <div id="preloader">
+        <h1 class="heading-font text-3xl font-extrabold tracking-widest text-white">MOHSIN <span style="color: var(--accent-neon);">AESTHETIC</span></h1>
+        <div class="loader-bar"></div>
+    </div>
+
+    <!-- NOTIFICATION TOAST -->
+    <div id="toast" class="fixed bottom-6 right-6 glass-panel px-6 py-4 rounded-xl z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-[var(--accent-neon)]"></i>
+        <span id="toast-msg" class="text-sm font-medium">Item added to your capsule</span>
+    </div>
+
+    <!-- FIXED HERO GLOW ORBS -->
+    <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[var(--accent-glow)] blur-[150px] pointer-events-none opacity-30"></div>
+    <div class="absolute top-[60%] right-[-10%] w-[400px] h-[400px] rounded-full bg-[var(--accent-glow)] blur-[130px] pointer-events-none opacity-20"></div>
+
+    <!-- STICKY NAVIGATION BAR -->
+    <nav class="fixed top-0 left-0 w-full z-40 glass-nav">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="heading-font text-xl md:text-2xl font-black tracking-tighter text-white uppercase">
+                MOHSIN<span style="color: var(--accent-neon); transition: color 0.3s;" class="neon-text-glow">.</span>AW
+            </a>
+
+            <!-- Search & User Welcome Block -->
+            <div class="hidden lg:flex items-center gap-6 flex-1 max-w-md mx-8">
+                <div class="relative w-full">
+                    <input type="text" id="search-input" placeholder="Search premium drops..." class="w-full bg-[#16161c] border border-zinc-800 rounded-full px-5 py-2 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-[var(--accent-neon)] transition-all">
+                    <i class="fa-solid fa-magnifying-glass absolute right-4 top-3 text-zinc-500 text-sm"></i>
+                </div>
+            </div>
+
+            <!-- Right Controls -->
+            <div class="flex items-center gap-4 md:gap-6">
+                <!-- User System Widget -->
+                <div id="user-widget" class="text-xs md:text-sm font-medium tracking-tight bg-zinc-900/80 px-4 py-2 rounded-full border border-zinc-800">
+                    <!-- Dynamic injection via JS -->
+                </div>
+
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="text-zinc-400 hover:text-white transition-colors text-lg" title="Switch Aesthetic Accent">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </button>
+
+                <!-- Shopping Bag Trigger -->
+                <button id="cart-trigger" class="relative p-2.5 bg-zinc-900 rounded-full border border-zinc-800 hover:border-zinc-700 transition-all">
+                    <i class="fa-solid fa-bag-shopping text-white text-lg"></i>
+                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-[var(--accent-neon)] text-black text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center scale-0 transition-transform duration-300">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SHOPPING CART DRAWER (REAL FUNCTIONAL) -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden transition-opacity duration-300"></div>
+    <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full sm:w-[450px] bg-[#0c0c0f] border-l border-zinc-900 z-50 cart-drawer flex flex-col">
+        <div class="p-6 border-b border-zinc-900 flex items-center justify-between">
+            <h3 class="heading-font text-lg font-bold uppercase tracking-wider">Your Aesthetic Core</h3>
+            <button id="cart-close" class="p-2 text-zinc-400 hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Dynamic Cart Items Container -->
+        <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4">
+            <!-- Empty state fallback or filled items injected via JS -->
+        </div>
+
+        <!-- Cart Summary Footer -->
+        <div class="p-6 bg-[#111116] border-t border-zinc-900 space-y-4">
+            <div class="flex justify-between items-center text-sm">
+                <span class="text-zinc-400">Subtotal Value</span>
+                <span id="cart-total" class="font-bold text-lg text-[var(--accent-neon)]">$0.00</span>
+            </div>
+            <p class="text-[11px] text-zinc-500">Secure checkout architecture. Free distribution on premium modern orders.</p>
+            <button class="w-full btn-neon py-4 rounded-xl text-xs font-bold uppercase tracking-widest text-white transition-all">
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden">
+        <div class="absolute inset-0 grid-bg opacity-40 z-0"></div>
+        <div class="max-w-5xl mx-auto px-6 text-center relative z-10 space-y-8">
+            <span class="inline-block bg-zinc-900/90 text-zinc-400 text-xs font-semibold tracking-[0.3em] uppercase px-4 py-2 rounded-full border border-zinc-800">
+                Dropping Season Vol. II
+            </span>
+            <h1 class="heading-font text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter uppercase leading-none">
+                Elevate Your Identity With <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-400 to-[var(--accent-neon)] neon-text-glow">Mohsin Aesthetic Wear</span>
+            </h1>
+            <p class="text-zinc-400 max-w-xl mx-auto text-sm sm:text-base font-light leading-relaxed">
+                Premium futuristic architecture engineered for performance streetwear and extreme fitness execution. Designed to look elite, built to dominate.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                <a href="#collection-section" class="w-full sm:w-auto px-8 py-4 bg-white text-black font-bold text-xs uppercase tracking-widest rounded-xl hover:bg-[var(--accent-neon)] hover:text-black transition-all duration-300 shadow-xl">
+                    Shop Modern Capsule
+                </a>
+                <a href="#trending-section" class="w-full sm:w-auto px-8 py-4 glass-panel border border-zinc-800 text-white font-bold text-xs uppercase tracking-widest rounded-xl hover:border-zinc-500 transition-all">
+                    Explore Aesthetics
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- USER REGISTRATION DIALOG / PROFILE GATEWAY -->
+    <section class="max-w-7xl mx-auto px-6 py-12">
+        <div id="auth-box" class="glass-panel rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 max-w-3xl mx-auto">
+            <div class="space-y-1 text-center md:text-left">
+                <h4 class="text-base font-bold uppercase tracking-wide">Join The Elite Identity Club</h4>
+                <p class="text-xs text-zinc-400">Save setups, compile premium history bags, and synchronize configuration data.</p>
+            </div>
+            <div class="flex gap-2 w-full md:w-auto">
+                <input type="text" id="username-input" placeholder="Enter identity tag..." class="bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-[var(--accent-neon)] w-full md:w-56 transition-all">
+                <button id="save-username-btn" class="px-5 py-3 btn-neon rounded-xl text-xs font-bold uppercase tracking-wider text-white whitespace-nowrap">Initialize</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT DISPLAY CATALOG WITH CATEGORY FILTERS -->
+    <section id="collection-section" class="max-w-7xl mx-auto px-6 py-24 space-y-12">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div class="space-y-2">
+                <h2 class="heading-font text-2xl md:text-4xl font-extrabold uppercase tracking-tight">Core Drops Matrix</h2>
+                <p class="text-xs md:text-sm text-zinc-500">Filter through our high-performance architectural releases.</p>
+            </div>
+            
+            <!-- Dynamic Category Filter Switches -->
+            <div class="flex flex-wrap gap-2 bg-zinc-950 p-1.5 rounded-xl border border-zinc-900 self-start">
+                <button class="filter-btn active px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-black bg-[var(--accent-neon)] transition-all" data-category="all">All Architecture</button>
+                <button class="filter-btn px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-zinc-400 hover:text-white transition-all" data-category="streetwear">Streetwear</button>
+                <button class="filter-btn px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-zinc-400 hover:text-white transition-all" data-category="gym">Gym Core</button>
+                <button class="filter-btn px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-zinc-400 hover:text-white transition-all" data-category="premium">Premium Line</button>
+            </div>
+        </div>
+
+        <!-- Catalog Display Grid -->
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Dynamic compilation by runtime system -->
+        </div>
+    </section>
+
+    <!-- TRENDING MATRIX & SLIDER TRACK -->
+    <section id="trending-section" class="bg-[#0e0e12] border-y border-zinc-900 py-24 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 mb-12 space-y-2">
+            <h2 class="heading-font text-2xl md:text-4xl font-extrabold uppercase tracking-tight text-center md:text-left">Trending Vectors</h2>
+            <p class="text-xs md:text-sm text-zinc-500 text-center md:text-left">High volume architectural items monitored globally right now.</p>
+        </div>
+
+        <!-- Slider Row Track Container -->
+        <div class="relative w-full overflow-x-auto flex gap-6 px-6 max-w-7xl mx-auto py-4 scroll-smooth no-scrollbar" style="scrollbar-width: none;">
+            <!-- Trending Card 1 -->
+            <div class="min-w-[280px] sm:min-w-[320px] bg-zinc-900/40 rounded-2xl p-4 border border-zinc-900 group">
+                <div class="relative overflow-hidden rounded-xl bg-zinc-950 aspect-[4/5] mb-4">
+                    <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=500&q=80" alt="Cyber Hoodie" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80">
+                    <span class="absolute top-3 left-3 bg-red-500/20 text-red-400 text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider border border-red-500/30">Hot Drop</span>
+                </div>
+                <h4 class="font-bold text-sm tracking-tight">Oversized Cyber-Glow Hoodie</h4>
+                <div class="flex items-center justify-between mt-2">
+                    <span class="text-zinc-400 text-xs">$65.00</span>
+                    <span class="text-[11px] text-[var(--accent-neon)] font-medium">Top Sold Matrix</span>
+                </div>
+            </div>
+
+            <!-- Trending Card 2 -->
+            <div class="min-w-[280px] sm:min-w-[320px] bg-zinc-900/40 rounded-2xl p-4 border border-zinc-900 group">
+                <div class="relative overflow-hidden rounded-xl bg-zinc-950 aspect-[4/5] mb-4">
+                    <img src="https://images.unsplash.com/photo-1542512395-e215c23d46ff?auto=format&fit=crop&w=500&q=80" alt="Cargo Joggers" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80">
+                    <span class="absolute top-3 left-3 bg-[var(--accent-glow)] text-[var(--accent-neon)] text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider border border-[var(--accent-neon)]/30">99.4% Rating</span>
+                </div>
+                <h4 class="font-bold text-sm tracking-tight">Tech-Cargo Aesthetic Joggers</h4>
+                <div class="flex items-center justify-between mt-2">
+                    <span class="text-zinc-400 text-xs">$55.00</span>
+                    <span class="text-[11px] text-zinc-500 font-medium">Restocking Soon</span>
+                </div>
+            </div>
+
+            <!-- Trending Card 3 -->
+            <div class="min-w-[280px] sm:min-w-[320px] bg-zinc-900/40 rounded-2xl p-4 border border-zinc-900 group">
+                <div class="relative overflow-hidden rounded-xl bg-zinc-950 aspect-[4/5] mb-4">
+                    <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=500&q=80" alt="Compression Shirt" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80">
+                    <span class="absolute top-3 left-3 bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider border border-amber-500/30">Elite Tier</span>
+                </div>
+                <h4 class="font-bold text-sm tracking-tight">Alpha Compression Performance Tee</h4>
+                <div class="flex items-center justify-between mt-2">
+                    <span class="text-zinc-400 text-xs">$45.00</span>
+                    <span class="text-[11px] text-[var(--accent-neon)] font-medium">Trending Vector</span>
+                </div>
+            </div>
+
+            <!-- Trending Card 4 -->
+            <div class="min-w-[280px] sm:min-w-[320px] bg-zinc-900/40 rounded-2xl p-4 border border-zinc-900 group">
+                <div class="relative overflow-hidden rounded-xl bg-zinc-950 aspect-[4/5] mb-4">
+                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=500&q=80" alt="Minimalist Jacket" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80">
+                    <span class="absolute top-3 left-3 bg-purple-500/20 text-purple-400 text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider border border-purple-500/30">Limited Drop</span>
+                </div>
+                <h4 class="font-bold text-sm tracking-tight">Matrix Techwear Field Shell</h4>
+                <div class="flex items-center justify-between mt-2">
+                    <span class="text-zinc-400 text-xs">$120.00</span>
+                    <span class="text-[11px] text-zinc-500 font-medium">5 Units Left</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PREMIUM REVIEWS / CLIENT FIELD TESTING -->
+    <section class="max-w-7xl mx-auto px-6 py-24 space-y-12">
+        <h2 class="heading-font text-2xl md:text-4xl font-extrabold uppercase tracking-tight text-center">Verified Field Testing</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="glass-panel p-8 rounded-2xl space-y-4">
+                <div class="flex gap-1 text-[var(--accent-neon)] text-xs">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="text-sm text-zinc-300 font-light leading-relaxed">"The oversized tees feel structured yet incredibly breathable. The design detail on the hems screams premium. Definitely matches my luxury tech setup vibe."</p>
+                <div class="border-t border-zinc-900 pt-4 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center font-bold text-xs">MX</div>
+                    <div>
+                        <h5 class="text-xs font-bold uppercase tracking-wider">Marcus X.</h5>
+                        <p class="text-[10px] text-zinc-500">Verified Operator / New York</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel p-8 rounded-2xl space-y-4 border-t-2 border-t-[var(--accent-neon)]">
+                <div class="flex gap-1 text-[var(--accent-neon)] text-xs">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="text-sm text-zinc-300 font-light leading-relaxed">"The Gym Core joggers compress perfectly while supporting full athletic range during heavy tracking. The neon accents glow cleanly under gym low-lights."</p>
+                <div class="border-t border-zinc-900 pt-4 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center font-bold text-xs">TB</div>
+                    <div>
+                        <h5 class="text-xs font-bold uppercase tracking-wider">Tochukwu B.</h5>
+                        <p class="text-[10px] text-zinc-500">Calisthenics Athlete / London</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel p-8 rounded-2xl space-y-4">
+                <div class="flex gap-1 text-[var(--accent-neon)] text-xs">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="text-sm text-zinc-300 font-light leading-relaxed">"Incredibly fast fulfillment architecture. The material thickness has an insane drape profile. This isn't fast-fashion; it's modular apparel architecture."</p>
+                <div class="border-t border-zinc-900 pt-4 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center font-bold text-xs">AM</div>
+                    <div>
+                        <h5 class="text-xs font-bold uppercase tracking-wider">Aria M.</h5>
+                        <p class="text-[10px] text-zinc-500">Creative Director / Tokyo</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER / CRYPTO DROP DISPATCH -->
+    <section class="max-w-4xl mx-auto px-6 py-12 text-center">
+        <div class="glass-panel rounded-3xl p-8 md:p-16 space-y-6 relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-[var(--accent-glow)]/10 to-transparent pointer-events-none"></div>
+            <h3 class="heading-font text-2xl md:text-4xl font-extrabold uppercase tracking-tight">Sync With Core Releases</h3>
+            <p class="text-zinc-400 text-xs md:text-sm max-w-md mx-auto font-light">
+                Subscribe to receive encrypted telemetry regarding confidential product architecture drops, community testing events, and private pricing lists.
+            </p>
+            <form id="newsletter-form" class="flex flex-col sm:flex-row gap-2 max-w-md mx-auto pt-4">
+                <input type="email" required placeholder="Enter terminal email..." class="bg-zinc-950 border border-zinc-800 rounded-xl px-5 py-4 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-[var(--accent-neon)] flex-1 transition-all">
+                <button type="submit" class="px-6 py-4 btn-neon rounded-xl text-xs font-bold uppercase tracking-widest text-white transition-all">Synchronize</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER ARCHITECTURE -->
+    <footer class="border-t border-zinc-900 mt-24 bg-black">
+        <div class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="space-y-4">
+                <h4 class="heading-font font-black tracking-tight text-lg uppercase">MOHSIN<span style="color: var(--accent-neon);">.</span>AW</h4>
+                <p class="text-xs text-zinc-500 leading-relaxed">
+                    Futuristic architectural streetwear engineered for high-performance physical structures and aesthetic identity dominance.
+                </p>
+                <div class="flex gap-4 text-zinc-400 text-sm">
+                    <a href="#" class="hover:text-[var(--accent-neon)] transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="hover:text-[var(--accent-neon)] transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="hover:text-[var(--accent-neon)] transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+            <div>
+                <h5 class="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">Product Nodes</h5>
+                <ul class="space-y-2 text-xs text-zinc-500">
+                    <li><a href="#" class="hover:text-white transition-colors">Streetwear Division</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Gym Core Compression</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Premium Outer Shells</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Limited Access Bundles</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">Support & Assets</h5>
+                <ul class="space-y-2 text-xs text-zinc-500">
+                    <li><a href="#" class="hover:text-white transition-colors">Order Telemetry</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Sizing Architecture</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Terminal Logistics</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Security Manifest</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">Operational Status</h5>
+                <p class="text-xs text-zinc-500 leading-relaxed mb-2">Systems online worldwide. Distributed via secure edge deployment pipelines.</p>
+                <span class="inline-flex items-center gap-2 text-[10px] uppercase font-bold tracking-wider text-[var(--accent-neon)] bg-[var(--accent-glow)]/10 px-3 py-1 rounded-full border border-[var(--accent-neon)]/20">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent-neon)] animate-pulse"></span> Terminal 2026 Active
+                </span>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 py-6 border-t border-zinc-950 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-zinc-600">
+            <p>&copy; 2026 Mohsin Aesthetic Wear Architecture. Developed under elite standards.</p>
+            <p>Designed by Mohsin &bull; SEO & Creative Layout Core</p>
+        </div>
+    </footer>
+
+
+    <!-- ========================================== -->
+    <!--          CORE CORE CORE JAVASCRIPT         -->
+    <!-- ========================================== -->
+    <script>
+        // CORE COMPREHENSIVE DATASET
+        const productsDataset = [
+            { id: 1, name: "Minimalist Oversized Box-Tee", category: "streetwear", price: 25.00, image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=500&q=80", tag: "Heavyweight Cotton" },
+            { id: 2, name: "Premium Onyx Stealth Hoodie", category: "premium", price: 40.00, image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=500&q=80", tag: "Water Repellent" },
+            { id: 3, name: "Modular Techwear Cargo Joggers", category: "streetwear", price: 35.00, image: "https://images.unsplash.com/photo-1542512395-e215c23d46ff?auto=format&fit=crop&w=500&q=80", tag: "Cyber Fit" },
+            { id: 4, name: "Pro-Alpha Core Compression Shirt", category: "gym", price: 30.00, image: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=500&q=80", tag: "Thermoregulation" },
+            { id: 5, name: "Elite Phantom Running Shorts", category: "gym", price: 28.00, image: "https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=500&q=80", tag: "Split-Hem Aero" },
+            { id: 6, name: "Cyber-Grid Knit Utility Vest", category: "premium", price: 75.00, image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=500&q=80", tag: "Modular Rig" },
+            { id: 7, name: "Hyper-Aesthetic Cropped Sweater", category: "streetwear", price: 45.00, image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=500&q=80", tag: "Drop Shoulder" },
+            { id: 8, name: "Vanguard Heavy Knit Fleece Shell", category: "premium", price: 90.00, image: "https://images.unsplash.com/photo-1544923246-77307dd654cb?auto=format&fit=crop&w=500&q=80", tag: "Liminal Collection" }
+        ];
+
+        // STATE INITIALIZATION USING LOCALSTORAGE PERSISTENCE
+        let cartState = JSON.parse(localStorage.getItem('mohsin_cart_state')) || [];
+        let currentCategory = "all";
+        let searchQuery = "";
+
+        // DOM ELEMENTS SELECTION
+        const preloader = document.getElementById('preloader');
+        const productGrid = document.getElementById('product-grid');
+        const cartTrigger = document.getElementById('cart-trigger');
+        const cartClose = document.getElementById('cart-close');
+        const cartDrawer = document.getElementById('cart-drawer');
+        const cartOverlay = document.getElementById('cart-overlay');
+        const cartItemsContainer = document.getElementById('cart-items-container');
+        const cartTotal = document.getElementById('cart-total');
+        const cartBadge = document.getElementById('cart-badge');
+        const themeToggle = document.getElementById('theme-toggle');
+        const toast = document.getElementById('toast');
+        const toastMsg = document.getElementById('toast-msg');
+        const searchInput = document.getElementById('search-input');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const saveUsernameBtn = document.getElementById('save-username-btn');
+        const usernameInput = document.getElementById('username-input');
+        const userWidget = document.getElementById('user-widget');
+        const newsletterForm = document.getElementById('newsletter-form');
+
+        // RUNTIME SYSTEMS & HANDLERS
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+            }, 1200); // Premium deliberate loading feel
+            
+            initializeUserSystem();
+            renderProducts();
+            synchronizeCartUI();
+        });
+
+        // IDENTITY USER MANAGEMENT INTERACTION SYSTEM
+        function initializeUserSystem() {
+            const savedUser = localStorage.getItem('mohsin_user_tag');
+            if (savedUser) {
+                userWidget.innerHTML = `<i class="fa-solid fa-user-shield text-[var(--accent-neon)] mr-2"></i>Welcome back, <span class="font-bold text-white">${savedUser}</span>`;
+                document.getElementById('auth-box').innerHTML = `
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-[var(--accent-glow)]/20 border border-[var(--accent-neon)]/40 flex items-center justify-center text-[var(--accent-neon)]">
+                            <i class="fa-solid fa-fingerprint text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold uppercase tracking-wider">Identity Confirmed</h4>
+                            <p class="text-xs text-zinc-500">Secure link established for <span class="text-white font-medium">${savedUser}</span>.</p>
+                        </div>
+                    </div>
+                    <button onclick="purgeUserIdentity()" class="text-xs text-zinc-500 hover:text-red-400 transition-colors underline bg-transparent border-none cursor-pointer">Disconnect Core</button>
+                `;
+            } else {
+                userWidget.innerHTML = `<i class="fa-solid fa-circle-user text-zinc-500 mr-2"></i>Guest Core`;
+            }
+        }
+
+        saveUsernameBtn.addEventListener('click', () => {
+            const val = usernameInput.value.trim();
+            if (val) {
+                localStorage.setItem('mohsin_user_tag', val);
+                showNotification(`Identity established as ${val}`);
+                initializeUserSystem();
+            }
+        });
+
+        function purgeUserIdentity() {
+            localStorage.removeItem('mohsin_user_tag');
+            showNotification("Identity log cleared from terminal.");
+            location.reload();
+        }
+
+        // CATALOG VIEW ARCHITECTURE SYSTEM
+        function renderProducts() {
+            productGrid.innerHTML = "";
+            
+            const filtered = productsDataset.filter(p => {
+                const matchCategory = currentCategory === "all" || p.category === currentCategory;
+                const matchSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                    p.tag.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchCategory && matchSearch;
+            });
+
+            if(filtered.length === 0) {
+                productGrid.innerHTML = `
+                    <div class="col-span-full py-16 text-center space-y-4">
+                        <i class="fa-solid fa-exclamation-triangle text-zinc-700 text-3xl"></i>
+                        <p class="text-xs text-zinc-500 uppercase tracking-widest">No assets match your current matrix query.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = "glass-panel rounded-2xl p-4 flex flex-col group hover:border-[var(--accent-neon)]/30 transition-all duration-500 relative overflow-hidden";
+                card.innerHTML = `
+                    <div class="relative overflow-hidden rounded-xl bg-zinc-950 aspect-[3/4] mb-4">
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90">
+                        <span class="absolute top-3 left-3 bg-black/80 text-[9px] font-bold px-2.5 py-1 rounded-md uppercase tracking-widest text-zinc-400 border border-zinc-800">
+                            ${p.tag}
+                        </span>
+                    </div>
+                    <div class="flex-1 flex flex-col justify-between space-y-3">
+                        <div class="space-y-1">
+                            <span class="text-[10px] text-zinc-500 uppercase tracking-wider font-semibold">${p.category}</span>
+                            <h3 class="font-bold text-sm text-zinc-200 tracking-tight leading-snug group-hover:text-white transition-colors">${p.name}</h3>
+                        </div>
+                        <div class="flex items-center justify-between pt-2 border-t border-zinc-900">
+                            <span class="text-sm font-bold text-white">$${p.price.toFixed(2)}</span>
+                            <button onclick="addProductToCart(${p.id})" class="p-2.5 bg-zinc-900 rounded-xl border border-zinc-800 text-zinc-400 hover:text-black hover:bg-[var(--accent-neon)] hover:border-[var(--accent-neon)] transition-all duration-300">
+                                <i class="fa-solid fa-plus text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                productGrid.appendChild(card);
+            });
+        }
+
+        // CATEGORY FILTER & SEARCH ENGINE COUPLING
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'text-black', 'bg-[var(--accent-neon)]');
+                    b.classList.add('text-zinc-400');
+                });
+                e.target.classList.add('active', 'text-black', 'bg-[var(--accent-neon)]');
+                e.target.classList.remove('text-zinc-400');
+                currentCategory = e.target.getAttribute('data-category');
+                renderProducts();
+            });
+        });
+
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            renderProducts();
+        });
+
+        // SHOPPING CART OPERATIONAL MATRIX
+        function addProductToCart(productId) {
+            const targetItem = productsDataset.find(p => p.id === productId);
+            const internalIndex = cartState.findIndex(item => item.id === productId);
+
+            if(internalIndex > -1) {
+                cartState[internalIndex].quantity += 1;
+            } else {
+                cartState.push({ ...targetItem, quantity: 1 });
+            }
+
+            // Track last visited/added item to localStorage
+            localStorage.setItem('mohsin_last_interacted_product', JSON.stringify(targetItem));
+            
+            commitCartState();
+            showNotification(`Added ${targetItem.name} to capsule.`);
+        }
+
+        function updateQuantity(productId, quantumDelta) {
+            const targetIndex = cartState.findIndex(item => item.id === productId);
+            if(targetIndex > -1) {
+                cartState[targetIndex].quantity += quantumDelta;
+                if(cartState[targetIndex].quantity <= 0) {
+                    cartState.splice(targetIndex, 1);
+                }
+                commitCartState();
+            }
+        }
+
+        function removeProductFromCart(productId) {
+            cartState = cartState.filter(item => item.id !== productId);
+            commitCartState();
+            showNotification("Asset eliminated from capsule.");
+        }
+
+        function commitCartState() {
+            localStorage.setItem('mohsin_cart_state', JSON.stringify(cartState));
+            synchronizeCartUI();
+        }
+
+        function synchronizeCartUI() {
+            cartItemsContainer.innerHTML = "";
+            let computedTotalPrice = 0;
+            let totalItemsCount = 0;
+
+            if(cartState.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-center space-y-4 py-20">
+                        <i class="fa-solid fa-basket-shopping text-zinc-800 text-4xl"></i>
+                        <p class="text-xs text-zinc-500 uppercase tracking-widest">Capsule is currently void.</p>
+                    </div>
+                `;
+                cartTotal.innerText = "$0.00";
+                cartBadge.classList.add('scale-0');
+                return;
+            }
+
+            cartState.forEach(item => {
+                computedTotalPrice += (item.price * item.quantity);
+                totalItemsCount += item.quantity;
+
+                const element = document.createElement('div');
+                element.className = "flex items-center gap-4 bg-zinc-950 p-3 rounded-xl border border-zinc-900";
+                element.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg bg-zinc-900 border border-zinc-800">
+                    <div class="flex-1 min-w-0 space-y-1">
+                        <h4 class="text-xs font-bold text-white truncate uppercase tracking-tight">${item.name}</h4>
+                        <p class="text-[11px] text-[var(--accent-neon)]">$${(item.price * item.quantity).toFixed(2)}</p>
+                        <div class="flex items-center gap-2 mt-1">
+                            <button onclick="updateQuantity(${item.id}, -1)" class="w-5 h-5 bg-zinc-900 border border-zinc-800 text-[10px] flex items-center justify-center text-zinc-400 hover:text-white rounded">-</button>
+                            <span class="text-xs px-2 text-white font-mono">${item.quantity}</span>
+                            <button onclick="updateQuantity(${item.id}, 1)" class="w-5 h-5 bg-zinc-900 border border-zinc-800 text-[10px] flex items-center justify-center text-zinc-400 hover:text-white rounded">+</button>
+                        </div>
+                    </div>
+                    <button onclick="removeProductFromCart(${item.id})" class="text-zinc-600 hover:text-red-400 transition-colors p-2">
+                        <i class="fa-solid fa-trash-can text-xs"></i>
+                    </button>
+                `;
+                cartItemsContainer.appendChild(element);
+            });
+
+            cartTotal.innerText = `$${computedTotalPrice.toFixed(2)}`;
+            cartBadge.innerText = totalItemsCount;
+            if(totalItemsCount > 0) cartBadge.classList.remove('scale-0');
+        }
+
+        // DRAWER VISIBILITY TOGGLES
+        cartTrigger.addEventListener('click', () => {
+            cartDrawer.classList.add('open');
+            cartOverlay.classList.remove('hidden');
+        });
+
+        const closeCart = () => {
+            cartDrawer.classList.remove('open');
+            cartOverlay.classList.add('hidden');
+        };
+
+        cartClose.addEventListener('click', closeCart);
+        cartOverlay.addEventListener('click', closeCart);
+
+        // EXTRA DESIGN: AESTHETIC ACCENT THEME TOGGLE (MATRIX SWITCH)
+        themeToggle.addEventListener('click', () => {
+            const activeTheme = document.documentElement.getAttribute('data-theme');
+            if(activeTheme === 'cyber-purple') {
+                document.documentElement.removeAttribute('data-theme');
+                showNotification("Neon Emerald Matrix initialized.");
+            } else {
+                document.documentElement.setAttribute('data-theme', 'cyber-purple');
+                showNotification("Cyber Purple Matrix initialized.");
+            }
+        });
+
+        // TOAST INTERACTIVE NOTIFICATION EMITTER
+        function showNotification(message) {
+            toastMsg.innerText = message;
+            toast.style.transform = 'translateY(0)';
+            toast.style.opacity = '1';
+            
+            setTimeout(() => {
+                toast.style.transform = 'translateY(20px)';
+                toast.style.opacity = '0';
+            }, 3000);
+        }
+
+        // NEWSLETTER SUBMISSION LOGIC
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            showNotification("Telemetry synchronized successfully.");
+            newsletterForm.reset();
+        });
+    </script>
+</body>
+</html>
